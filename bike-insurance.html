@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Insurance Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            font-size: 0.8em;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Bike Insurance Form</h2>
+    <form id="bikeInsuranceForm" onsubmit="return validateForm()">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" required>
+        <span class="error" id="firstNameError"></span>
+
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" required>
+        <span class="error" id="lastNameError"></span>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        <span class="error" id="emailError"></span>
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" required>
+        <span class="error" id="dobError"></span>
+
+        <label for="bikeName">Bike Name</label>
+        <input type="text" id="bikeName" name="bikeName" required>
+        <span class="error" id="bikeNameError"></span>
+
+        <label for="modelYear">Year of Model</label>
+        <input type="number" id="modelYear" name="modelYear" min="1900" max="2024" required>
+        <span class="error" id="modelYearError"></span>
+
+        <label for="insuranceCost">Insurance Cost (in USD)</label>
+        <input type="number" id="insuranceCost" name="insuranceCost" min="0" required>
+        <span class="error" id="insuranceCostError"></span>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        let isValid = true;
+
+        // Clear previous error messages
+        document.querySelectorAll(".error").forEach(error => error.textContent = "");
+
+        // Validate First Name
+        const firstName = document.getElementById("firstName").value;
+        if (!firstName.match(/^[A-Za-z]+$/)) {
+            document.getElementById("firstNameError").textContent = "First name should contain only letters.";
+            isValid = false;
+        }
+
+        // Validate Last Name
+        const lastName = document.getElementById("lastName").value;
+        if (!lastName.match(/^[A-Za-z]+$/)) {
+            document.getElementById("lastNameError").textContent = "Last name should contain only letters.";
+            isValid = false;
+        }
+
+        // Validate Email
+        const email = document.getElementById("email").value;
+        if (!email.match(/^\S+@\S+\.\S+$/)) {
+            document.getElementById("emailError").textContent = "Please enter a valid email.";
+            isValid = false;
+        }
+
+        // Validate Date of Birth
+        const dob = document.getElementById("dob").value;
+        if (!dob) {
+            document.getElementById("dobError").textContent = "Please select your date of birth.";
+            isValid = false;
+        }
+
+        // Validate Bike Name
+        const bikeName = document.getElementById("bikeName").value;
+        if (!bikeName) {
+            document.getElementById("bikeNameError").textContent = "Please enter the bike name.";
+            isValid = false;
+        }
+
+        // Validate Model Year
+        const modelYear = document.getElementById("modelYear").value;
+        if (modelYear < 1900 || modelYear > 2024) {
+            document.getElementById("modelYearError").textContent = "Please enter a valid model year.";
+            isValid = false;
+        }
+
+        // Validate Insurance Cost
+        const insuranceCost = document.getElementById("insuranceCost").value;
+        if (insuranceCost < 0) {
+            document.getElementById("insuranceCostError").textContent = "Insurance cost cannot be negative.";
+            isValid = false;
+        }
+
+        return isValid;
+    }
+</script>
+
+</body>
+</html>
