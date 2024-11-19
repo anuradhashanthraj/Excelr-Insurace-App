@@ -1,0 +1,10 @@
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  namespace: prod-ns 
+spec: 
+  containers:
+    - name: example-app 
+      image: muralisocial123/web-app:2.0
+      ports:
+        - containerPort: 80
