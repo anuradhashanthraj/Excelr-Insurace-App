@@ -27,7 +27,7 @@ kind: Service
 metadata: 
   name: ins-svc 
 spec: 
-  slector:
+  selector:
     app: ins 
   ports: 
     - port: 80
