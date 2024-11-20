@@ -1,0 +1,19 @@
+apiVersion: apps/v1 
+kind: ReplicaSet
+metadata:
+  name: insurance-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      web: app
+  template:
+    metadata:
+      labels:
+        web: app
+    spec:
+      containers:
+        - name: insurance-app
+          image: muralisocial123/insurance-app-excelr:latest
+          ports:
+            - containerPort: 80
