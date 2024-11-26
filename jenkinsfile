@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    triggers {
+        pollSCM('H/5 * * * *') 
+        cron('0 12 * * *') 
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                echo 'Fetching the source code...'
+                checkout scm
+            }
+        }
+        stage('Code Quality Check') {
+            steps {
+                echo 'Running code quality checks...'
+                sh 'mvn sonar:sonar -Dsonar.projectKey=my-project -Dsonar.host.url=http://65.2.75.151:9000/ -Dsonar.login=my-sonar-token'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Compiling and testing...'
+                sh 'mvn clean install'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed!'
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
